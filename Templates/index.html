@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WhatsApp Chat Sentiment Analysis</title>
+    <style>
+        body {
+            background: linear-gradient(270deg, #1e1e1e, #121212, #1e1e1e);
+            background-size: 600% 600%;
+            animation: BackgroundAnimation 10s ease infinite;
+            color: #ffffff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+        }
+
+        @keyframes BackgroundAnimation {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .container {
+            text-align: center;
+            border: 2px solid #bb86fc;
+            padding: 20px;
+            border-radius: 10px;
+            background-color: rgba(30, 30, 30, 0.9);
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.7);
+        }
+
+        h1 {
+            color: #bb86fc;
+        }
+
+        input[type="file"] {
+            margin: 20px 0;
+            padding: 10px;
+            background-color: #bb86fc;
+            border: none;
+            border-radius: 5px;
+            color: #121212;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        input[type="file"]:hover {
+            background-color: #9a67ea;
+        }
+
+        input[type="submit"] {
+            padding: 10px 20px;
+            background-color: #03dac6;
+            border: none;
+            border-radius: 5px;
+            color: #121212;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #018786;
+        }
+
+        .result {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #03dac6;
+            border-radius: 5px;
+            background-color: #2c2c2c;
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>WhatsApp Chat Sentiment Analysis</h1>
+        <form id="uploadForm" method="post" enctype="multipart/form-data">
+            <input type="file" name="file" id="fileInput">
+            <input type="submit" value="Upload">
+        </form>
+        <div id="loading" class="hidden">Processing...</div>
+        {% if sentiment %}
+            <div class="result" id="result">
+                <h2>Sentiment Analysis Result: {{ sentiment }}</h2>
+            </div>
+        {% else %}
+            <div class="result hidden" id="result">
+                <h2>Sentiment Analysis Result: <span id="sentimentText"></span></h2>
+            </div>
+        {% endif %}
+    </div>
+
+    <script>
+        document.getElementById('uploadForm').addEventListener('submit', function() {
+            document.getElementById('loading').classList.remove('hidden');
+        });
+
+        document.getElementById('fileInput').addEventListener('change', function() {
+            document.getElementById('result').classList.add('hidden');
+        });
+    </script>
+</body>
+</html>
